@@ -30,23 +30,23 @@ class PlacesDatabase {
 
     final database = await openDatabase(databaseFilePath, version: 1,
         onCreate: (Database db, int version) async {
-          final scriptContent =
+      final scriptContent =
           await rootBundle.loadString('assets/sql/places.sql');
-          final statements = scriptContent.split(';');
+      final statements = scriptContent.split(';');
 
-          for (final statement in statements) {
-            if (statement.trim().isNotEmpty) {
-              await db.execute(statement);
-            }
-          }
+      for (final statement in statements) {
+        if (statement.trim().isNotEmpty) {
+          await db.execute(statement);
+        }
+      }
 
-          await db.execute('''
+      await db.execute('''
         CREATE TABLE IF NOT EXISTS search_queries (
           id INTEGER PRIMARY KEY AUTOINCREMENT,
           query TEXT
         )
       ''');
-        });
+    });
 
     return database;
   }
@@ -110,13 +110,15 @@ class PlacesDatabase {
     await db.insert('search_queries', {'query': query});
   }
 
-  Future<List<String>> getSearchQueries() async {
+  Future<NetworkResponse> getSearchQueries() async {
     final db = await instance.database;
     final List<Map<String, dynamic>> maps = await db.query('search_queries');
-    return List.generate(maps.length, (i) {
+    return NetworkResponse(
+        data: List.generate(maps.length, (i) {
       return maps[i]['query'];
-    });
+    }));
   }
+
   Future<void> deleteAllSearchQueries() async {
     final db = await instance.database;
     await db.delete('search_queries');

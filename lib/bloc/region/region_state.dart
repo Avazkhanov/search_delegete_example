@@ -9,6 +9,7 @@ class RegionState extends Equatable {
   final String statusMessage;
   final List<RegionModel> regions;
   final List<RegionModel> currentRegions;
+  final List<String> savedRegions;
 
   const RegionState({
     required this.formsStatus,
@@ -16,6 +17,7 @@ class RegionState extends Equatable {
     required this.statusMessage,
     required this.currentRegions,
     required this.regions,
+    required this.savedRegions,
   });
 
   RegionState copyWith({
@@ -24,6 +26,7 @@ class RegionState extends Equatable {
     String? statusMessage,
     List<RegionModel>? regions,
     List<RegionModel>? currentRegions,
+    List<String>? savedRegions,
   }) {
     return RegionState(
       formsStatus: formsStatus ?? this.formsStatus,
@@ -31,6 +34,7 @@ class RegionState extends Equatable {
       statusMessage: statusMessage ?? this.statusMessage,
       currentRegions: currentRegions ?? this.currentRegions,
       regions: regions ?? this.regions,
+      savedRegions: savedRegions ?? this.savedRegions,
     );
   }
 
@@ -41,5 +45,6 @@ class RegionState extends Equatable {
     statusMessage,
     currentRegions,
     regions,
+    savedRegions,
   ];
 }

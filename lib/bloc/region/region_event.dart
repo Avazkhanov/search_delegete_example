@@ -16,3 +16,23 @@ class SearchRegionCallEvent extends RegionEvent {
   @override
   List<Object?> get props => [searchTitle];
 }
+
+class SaveSearchRegion extends RegionEvent {
+  final String searchTitle;
+
+  SaveSearchRegion({required this.searchTitle});
+
+
+  @override
+  List<Object?> get props => [];
+}
+
+class GetSaveSearchRegion extends RegionEvent {
+  @override
+  List<Object?> get props => [];
+}
+
+class DeleteSaveSearchRegion extends RegionEvent {
+  @override
+  List<Object?> get props => [];
+}
