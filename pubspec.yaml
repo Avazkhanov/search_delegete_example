@@ -1,0 +1,55 @@
+name: search_delegete_example
+description: "A new Flutter project."
+
+publish_to: 'none'
+
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.2.5 <4.0.0'
+
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.2
+  flutter_svg: ^2.0.9
+  flutter_screenutil: ^5.9.0
+  http: ^1.2.1
+  flutter_bloc: ^8.1.5
+  sqflite: ^2.3.3+1
+  equatable: ^2.0.5
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+
+  flutter_lints: ^2.0.0
+
+
+flutter:
+
+
+  uses-material-design: true
+
+  assets:
+    - assets/sql/
+
+    #  fonts:
+    #    - family: Roboto
+    #      fonts:
+    #        - asset: assets/fonts/roboto/Roboto-Medium.ttf
+    #        - asset: assets/fonts/roboto/Roboto-Light.ttf
+    #        - asset: assets/fonts/roboto/Roboto-Regular.ttf
+
+    #         style: italic
+    # - family: Roboto
+    #   fonts:
+  #     - asset: assets/fonts/roboto/roboto_regular.ttf
+  #       - asset: fonts/TrajanPro_Bold.ttf
+  #         weight: 700
+  #
+
