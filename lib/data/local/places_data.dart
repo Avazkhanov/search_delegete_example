@@ -30,17 +30,25 @@ class PlacesDatabase {
 
     final database = await openDatabase(databaseFilePath, version: 1,
         onCreate: (Database db, int version) async {
-      // Read and execute SQL script here
-      final scriptContent =
+          // Read and execute SQL script here
+          final scriptContent =
           await rootBundle.loadString('assets/sql/places.sql');
-      final statements = scriptContent.split(';');
+          final statements = scriptContent.split(';');
 
-      for (final statement in statements) {
-        if (statement.trim().isNotEmpty) {
-          await db.execute(statement);
-        }
-      }
-    });
+          for (final statement in statements) {
+            if (statement.trim().isNotEmpty) {
+              await db.execute(statement);
+            }
+          }
+
+          // Create a table to store search queries if not already created in places.sql
+          await db.execute('''
+        CREATE TABLE IF NOT EXISTS search_queries (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          query TEXT
+        )
+      ''');
+        });
 
     return database; // Return the created database
   }
@@ -97,5 +105,20 @@ class PlacesDatabase {
       networkResponse.errorText = error.toString();
       return networkResponse;
     }
+  }
+
+  // Yangi metod: qidiruv so'rovini saqlash
+  Future<void> saveSearchQuery(String query) async {
+    final db = await instance.database;
+    await db.insert('search_queries', {'query': query});
+  }
+
+  // Yangi metod: saqlangan qidiruv so'rovlarini olish
+  Future<List<String>> getSearchQueries() async {
+    final db = await instance.database;
+    final List<Map<String, dynamic>> maps = await db.query('search_queries');
+    return List.generate(maps.length, (i) {
+      return maps[i]['query'];
+    });
   }
 }
