@@ -100,6 +100,7 @@ class RegionBloc extends Bloc<RegionEvent, RegionState> {
   Future<void> _deleteSearchRegion(DeleteSaveSearchRegion event, emit) async {
     emit(state.copyWith(formsStatus: FormsStatus.loading));
     await _placesDatabase.deleteAllSearchQueries();
+    add(GetSaveSearchRegion());
     emit(state.copyWith(formsStatus: FormsStatus.success));
   }
 
