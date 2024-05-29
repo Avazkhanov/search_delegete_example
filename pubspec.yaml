@@ -21,6 +21,7 @@ dependencies:
   flutter_bloc: ^8.1.5
   sqflite: ^2.3.3+1
   equatable: ^2.0.5
+  lottie: ^3.1.1
 
 dev_dependencies:
   flutter_test:
@@ -37,6 +38,7 @@ flutter:
 
   assets:
     - assets/sql/
+    - assets/lottie/
 
     #  fonts:
     #    - family: Roboto

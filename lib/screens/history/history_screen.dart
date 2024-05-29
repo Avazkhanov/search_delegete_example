@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:search_delegete_example/data/local/places_data.dart';
+import 'package:search_delegete_example/utils/app_images/app_images.dart';
 import 'package:search_delegete_example/utils/style/app_style.dart';
 
 class SearchHistoryScreen extends StatelessWidget {
@@ -17,6 +19,14 @@ class SearchHistoryScreen extends StatelessWidget {
           "Qidiruv Tarixi",
           style: AppStyle.poppinsSemiBold.copyWith(color: Colors.black),
         ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.clear),
+            onPressed: () async {
+              await PlacesDatabase.instance.deleteAllSearchQueries();
+            },
+          ),
+        ],
       ),
       body: FutureBuilder<List<String>>(
         future: _getSearchQueries(),
@@ -24,13 +34,17 @@ class SearchHistoryScreen extends StatelessWidget {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
-            print(snapshot.error);
             return Center(
               child: Text("Xatolik yuz berdi: ${snapshot.error}"),
             );
           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return const Center(
-              child: Text("Qidiruv tarixi mavjud emas"),
+            return Center(
+              child: Column(
+                children: [
+                  LottieBuilder.asset(AppImages.empty),
+                  const Text("Qidiruv tarixi mavjud emas"),
+                ],
+              ),
             );
           } else {
             final searchQueries = snapshot.data!;
